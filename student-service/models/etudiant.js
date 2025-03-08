@@ -1,4 +1,4 @@
-const mongoose = require('../index');
+const mongoose = require('mongoose');
 const StudentSchema = new mongoose.Schema({
     id: String,
     nom: String,

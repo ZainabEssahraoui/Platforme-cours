@@ -18,7 +18,7 @@ router.post('/add', verifyToken,  (req, res) => {
     try {
         const course = new Course(req.body);
          course.save();
-        res.status(201).json({ message: 'Cours ajouté avec succès' });
+        res.status(201).json({ message: 'cours ajoute avec succes' });
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
@@ -28,8 +28,8 @@ router.post('/add', verifyToken,  (req, res) => {
 router.put('/update/:id', verifyToken,  (req, res) => {
     try {
         const updatedCourse =  Course.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!updatedCourse) return res.status(404).json({ message: 'Cours non trouvé' });
-        res.json({ message: 'Cours mis à jour avec succès', course: updatedCourse });
+        if (!updatedCourse) return res.status(404).json({ message: 'cours non trouvé' });
+        res.json({ message: 'cours mis à jour avec succes', course: updatedCourse });
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
@@ -39,8 +39,8 @@ router.put('/update/:id', verifyToken,  (req, res) => {
 router.delete('/delete/:id', verifyToken,  (req, res) => {
     try {
         const deletedCourse =  Course.findByIdAndDelete(req.params.id);
-        if (!deletedCourse) return res.status(404).json({ message: 'Cours non trouvé' });
-        res.json({ message: 'Cours supprimé avec succès' });
+        if (!deletedCourse) return res.status(404).json({ message: 'cours non trouvé' });
+        res.json({ message: 'cours supprimé avec succes' });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }

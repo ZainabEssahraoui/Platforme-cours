@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const Utilisateur = require('../models/utilisateur');
 const verifyToken = require('../middleware/verifyToken');
 
-
+// q8-a
 router.post('/register', (req, res) => {
     bcrypt.genSalt(10)
         .then(salt => bcrypt.hash(req.body.password, salt))
@@ -21,15 +21,15 @@ router.post('/register', (req, res) => {
         .catch(err => res.status(400).json({ message: err.message }));
 });
 
-
+// q8-b
 router.post('/login', (req, res) => {
     Utilisateur.findOne({ email: req.body.email })
         .then(user => {
-            if (!user) return res.status(400).json({ message: 'Email ou mot de passe incorrect' });
+            if (!user) return res.status(400).json({ message: 'email ou mot de passe incorrect' });
 
             bcrypt.compare(req.body.password, user.password)
                 .then(isMatch => {
-                    if (!isMatch) return res.status(400).json({ message: 'Email o mot de passe incorrect' });
+                    if (!isMatch) return res.status(400).json({ message: 'email o mot de passe incorrect' });
 
                     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
                     res.header('Authorization', token).json({ token });
@@ -37,7 +37,7 @@ router.post('/login', (req, res) => {
         })
         .catch(err => res.status(500).json({ message: err.message }));
 });
-
+// q8-c
 router.get('/profile', verifyToken, (req, res) => {
     Utilisateur.findById(req.user.id)
         .select('-password')
